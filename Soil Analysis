@@ -1,0 +1,76 @@
+class SoilAnalysis:
+    def __init__(self, soil_type, soil_bearing_capacity, depth_of_soil_layer, water_table_depth):
+        self.soil_type = soil_type
+        self.soil_bearing_capacity = soil_bearing_capacity
+        self.depth_of_soil_layer = depth_of_soil_layer
+        self.water_table_depth = water_table_depth
+
+    def soil_type_info(self):
+        soil_info = {
+            'Clay': 'Clay soils are cohesive, sticky, and often have poor drainage.',
+            'Sand': 'Sand soils are loose, non-cohesive, and drain quickly.',
+            'Silt': 'Silt soils are smooth, slippery, and drain moderately.',
+            'Loam': 'Loam soils are a mixture of sand, silt, and clay and have good drainage.'
+        }
+        return soil_info.get(self.soil_type, 'Unknown soil type')
+    def check_soil_bearing_capacity(self):
+        if self.soil_bearing_capacity < 100:
+            return "Low soil bearing capacity"
+        elif 100 <= self.soil_bearing_capacity <= 300:
+            return "Medium soil bearing capacity"
+        else:
+            return "High soil bearing capacity"
+    def water_table_effect(self):
+        if self.water_table_depth < 2:
+            return "Water table is too high. This may reduce the bearing capacity significantly."
+        else:
+            return "Water table depth is adequate for construction."
+    def display_analysis(self):
+        allowable_bearing_capacity = self.calculate_soil_bearing_capacity()
+        settlement = self.calculate_settlement()
+        lateral_pressure = self.calculate_lateral_earth_pressure()
+        result = f"\nSoil Type: {self.soil_type}"
+        result += f"\nSoil Type Information: {self.soil_type_info()}"
+        result += f"\nSoil bearing Capacity: {self.soil_bearing_capacity} kN/m^2"
+        result += f"\nSoil bearing Capacity Evaluation: {self.check_soil_bearing_capacity()}"
+        result += f"\nDepth of Soil Layer: {self.depth_of_soil_layer} meters"
+        result += f"\nLoad Distribution Capacity: {allowable_bearing_capacity} kN"
+        result += f"\nSettlement (Estimated): {settlement} meters"
+        result += f"\nLateral Earth Pressure Coefficient: {lateral_pressure}"
+        result += f"\nWater Table Depth: {self.water_table_depth} meters"
+        result += f"\nWater Table Effect: {self.water_table_effect()}\n"
+        if allowable_bearing_capacity < 100:
+            result += "\n[WARNING]: The allowable soil bearing capacity is too low for safe construction!"
+        if settlement > 0.01:
+            result += "\n[WARNING]: Settlement exceeds acceptable limits! Consider revising the foundation design."
+        if lateral_pressure > 1.5:
+            result += "\n[WARNING]: Lateral earth pressure is high. Consider reinforcing structures like retaining walls."
+        if self.water_table_depth < 2:
+            result += "\n[WARNING]: High water table detected. This may reduce soil stability and bearing capacity!"
+        print(result)
+    def get_soil_type():
+    valid_soil_types = ['Clay', 'Sand', 'Silt', 'Loam']
+    while True:
+        soil_type = input("Soil type (Clay, Sand, Silt, Loam): ").capitalize()
+        if soil_type in valid_soil_types:
+            return soil_type
+        else:
+            print("Invalid input. Please enter a valid soil type (Clay, Sand, Silt, Loam).")
+   def get_positive_float(prompt):
+    while True:
+        try:
+            value = float(input(prompt))
+            if value > 0:
+                return value
+            else:
+                print("Invalid input. Please input a positive number.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+  def get_soil_analysis_inputs():
+    print("\nPlease enter the soil analysis parameters:")
+    soil_type = get_soil_type()
+    soil_bearing_capacity = get_positive_float("Soil bearing capacity (kN/m^2): ")
+    depth_of_soil_layer = get_positive_float("Depth of soil layer (meters): ")
+    water_table_depth = get_positive_float("Water table depth (meters): ")
+    return SoilAnalysis(soil_type, soil_bearing_capacity, depth_of_soil_layer, water_table_depth)
+            
