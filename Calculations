@@ -1,0 +1,23 @@
+def calculate_soil_bearing_capacity(self):
+        safety_factor = 3.0
+        load_factor = 1.2 if self.soil_type == 'Clay' else 1.0
+        total_bearing_capacity = self.soil_bearing_capacity * load_factor * self.depth_of_soil_layer
+        allowable_bearing_capacity = total_bearing_capacity / safety_factor
+        return allowable_bearing_capacity
+
+def calculate_settlement(self):
+        applied_pressure = 150   # Standard Applied pressure (in kN/m^2) 
+        foundation_width = 1   # Standard width of the foundation (in meters)
+        young_modulus = 10e6  # Standard Young's modulus for the soil (in kN/m^2)
+        poisson_ratio = 0.3  # Poisson's ratio for the soil (dimensionless)
+        settlement = (applied_pressure * foundation_width) / (young_modulus * (1 - poisson_ratio**2))
+        return settlement
+
+def calculate_lateral_earth_pressure(self):
+        friction_angle = 30 # Assumed friction angle of the soil (in degrees)
+        K = (1 - (3.14159 * friction_angle) / (1 + (3.14159 * friction_angle))) # Simplified calculation
+        return K
+
+def calculate_wind_load(q, G, Cd, area):
+    calculate_wind_load = q * G * Cd * area
+    return calculate_wind_load
