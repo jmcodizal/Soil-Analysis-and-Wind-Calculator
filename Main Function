@@ -1,0 +1,20 @@
+def main():
+    while True:
+        print("\nWhich calculation would you like to perform? Enter (1, 2, or 3)")
+        print("1: Soil Analysis")
+        print("2: Wind Load Calculation")
+        print("3: Exit")
+        choice = input("Enter the number of your choice: ").strip()
+        if choice == '1':
+            soil_analysis = get_soil_analysis_inputs()
+            soil_analysis.display_analysis()
+        elif choice == '2':
+            wind_load_calculation()
+        elif choice == '3':
+            print("THANKYOU FOR USING SOIL ANALYSIS & WIND LOAD CALCULATOR. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
+
+if __name__ == "__main__":
+    main()
